@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  chanchito:
+    build: 
+      context: .
+      dockerfile: dockerfile.dev
+    ports:
+      - "3000:3000"
+    links:
+      - monguito
+    volumes:
+      - .:/home/app
+  monguito:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=guille
+      - MONGO_INITDB_ROOT_PASSWORD=1234
+    volumes:
+      - mongo-data:/data/db
+      # mysql -> /var/lib/mysql
+      #postgres -> /var/lib/postgresql/data
+volumes:
+  mongo-data:
